@@ -1,0 +1,30 @@
+/* projects/remote/src/app/todo/todo.component.scss */
+.todo-list {
+    max-width: 400px;
+    margin: 20px auto;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  
+    h2 {
+      text-align: center;
+    }
+  
+    ul {
+      list-style-type: none;
+      padding: 0;
+  
+      li {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 5px 0;
+  
+        span.completed {
+          text-decoration: line-through;
+          color: grey;
+        }
+      }
+    }
+  }
+  

@@ -1,0 +1,7 @@
+ng new mfe-monorepo --create-application=false --style=scss         
+cd mfe-monorepo  
+ng generate application host --routing=true --style=scss --standalone=false
+ng generate application remote --routing=true --style=scss --standalone=false
+npm i webpack webpack-cli --save-dev
+ng add @angular-architects/module-federation --project host --port 4200
+ng add @angular-architects/module-federation --project remote --port 4300
