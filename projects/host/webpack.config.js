@@ -37,10 +37,10 @@ module.exports = {
       // For remotes (please adjust)
       name: "host",
       filename: "remoteEntry.js",
-      exposes: {
-        "./AuthService": "./projects/host/src/app/store/auth/auth.service.ts",
-        // "./AuthServices": "/projects/hos",
-      },
+      // exposes: {
+      //   "./AuthService": "./projects/host/src/app/store/auth/auth.service.ts",
+      //   // "./AuthServices": "/projects/hos",
+      // },
 
       // For hosts (please adjust)
       remotes: {

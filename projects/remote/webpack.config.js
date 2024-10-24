@@ -37,10 +37,10 @@ module.exports = {
         "./TodoModule": "./projects/remote/src/app/todo/todo.module.ts",
       },
 
-      // For hosts (please adjust)
-      remotes: {
-        host: "host@http://localhost:4200/remoteEntry.js",
-      },
+      // // For hosts (please adjust)
+      // remotes: {
+      //   host: "host@http://localhost:4200/remoteEntry.js",
+      // },
 
       shared: share({
         "@angular/core": {
