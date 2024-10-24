@@ -4,54 +4,69 @@ const path = require("path");
 const share = mf.share;
 
 const sharedMappings = new mf.SharedMappings();
-sharedMappings.register(
-  path.join(__dirname, '../../tsconfig.json'),
-  [/* mapped paths to share */]);
+sharedMappings.register(path.join(__dirname, "../../tsconfig.json"), [
+  /* mapped paths to share */
+]);
 
 module.exports = {
+  target: "web",
   output: {
     uniqueName: "remote",
     publicPath: "auto",
-    scriptType : "text/javascript"
+    scriptType: "text/javascript",
   },
   optimization: {
-    runtimeChunk: false
+    runtimeChunk: false,
   },
   resolve: {
     alias: {
       ...sharedMappings.getAliases(),
-    }
+    },
   },
   experiments: {
-    outputModule: true
+    outputModule: true,
   },
   plugins: [
     new ModuleFederationPlugin({
-        //library: { type: "module" },
+      //library: { type: "module" },
 
-        // For remotes (please adjust)
-        name: "remote",
-        filename: "remoteEntry.js",
-        exposes: {
-            './TodoModule': './projects/remote/src/app/todo/todo.module.ts',
+      // For remotes (please adjust)
+      name: "remote",
+      filename: "remoteEntry.js",
+      exposes: {
+        "./TodoModule": "./projects/remote/src/app/todo/todo.module.ts",
+      },
+
+      // For hosts (please adjust)
+      remotes: {
+        host: "host@http://localhost:4200/remoteEntry.js",
+      },
+
+      shared: share({
+        "@angular/core": {
+          singleton: true,
+          strictVersion: true,
+          requiredVersion: "auto",
+        },
+        "@angular/common": {
+          singleton: true,
+          strictVersion: true,
+          requiredVersion: "auto",
+        },
+        "@angular/common/http": {
+          singleton: true,
+          strictVersion: true,
+          requiredVersion: "auto",
+        },
+        "@angular/router": {
+          singleton: true,
+          strictVersion: true,
+          requiredVersion: "auto",
         },
 
-        // For hosts (please adjust)
-        // remotes: {
-        //     "host": "http://localhost:4200/remoteEntry.js",
-
-        // },
-
-        shared: share({
-          "@angular/core": { singleton: true, strictVersion: true, requiredVersion: 'auto' },
-          "@angular/common": { singleton: true, strictVersion: true, requiredVersion: 'auto' },
-          "@angular/common/http": { singleton: true, strictVersion: true, requiredVersion: 'auto' },
-          "@angular/router": { singleton: true, strictVersion: true, requiredVersion: 'auto' },
-
-          ...sharedMappings.getDescriptors()
-        })
-
+        ...sharedMappings.getDescriptors(),
+      }),
     }),
-    sharedMappings.getPlugin()
+    sharedMappings.getPlugin(),
   ],
 };

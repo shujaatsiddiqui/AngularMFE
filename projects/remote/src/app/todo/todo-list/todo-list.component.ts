@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AuthService } from 'host/AuthService';
 
 @Component({
   selector: 'app-todo-list',
@@ -7,5 +8,9 @@ import { Component } from '@angular/core';
 })
 export class TodoListComponent {
 
-  // add something in local storage with key testdata
+
+  constructor(private authService: AuthService) {
+    // Use AuthService methods like login, logout, etc.
+    this.authService.logout() // logs not implemented to browser console
+  }
 }
