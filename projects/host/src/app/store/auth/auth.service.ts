@@ -1,33 +1,54 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { User } from './auth.model';
+import { HttpClient } from '@angular/common/http';
 
-@Injectable({
-  providedIn: 'root'
-})
 export class AuthService {
   constructor(private http: HttpClient) { }
 
-  login(email: string, password: string): Observable<{ access_token: string, refresh_token: string, user: User }> {
-    return this.http.post<{ access_token: string, refresh_token: string, user: User }>('/api/login', { email, password });
+  // Hardcoded login method using the updated User model
+  login(email: string, password: string): Observable<User> {
+    const user: User = {
+      id: '1',
+      email: 'shujaat@example.com',
+      name: 'Shujaat',
+      accessToken: 'dummyAccessToken',
+      refreshToken: 'dummyRefreshToken'
+    };
+    
+    return of(user); // Returning hardcoded user data with tokens included
   }
 
+  // Hardcoded signup method using the updated User model
   signup(email: string, password: string): Observable<User> {
-    return this.http.post<User>('/api/signup', { email, password });
+    const newUser: User = {
+      id: '2',
+      email: 'newuser@example.com',
+      name: 'NewUser',
+      accessToken: 'newUserAccessToken',
+      refreshToken: 'newUserRefreshToken'
+    };
+
+    return of(newUser); // Returning hardcoded new user with tokens included
   }
 
-  refreshToken(refresh_token: string): Observable<{ access_token: string }> {
-    return this.http.post<{ access_token: string }>('/api/refresh-token', { refresh_token });
+  // Hardcoded refresh token method returning only new access token
+  refreshToken(refresh_token: string): Observable<{ accessToken: string }> {
+    const hardcodedAccessToken = {
+      accessToken: 'newDummyAccessToken'
+    };
+
+    return of(hardcodedAccessToken); // Returning hardcoded access token
   }
 
-  isTokenValid(access_token: string): Observable<boolean> {
-    return this.http.post<boolean>('/api/check-token', { access_token });
+  // Hardcoded token validation method
+  isTokenValid(accessToken: string): Observable<boolean> {
+    const isValid = accessToken === 'dummyAccessToken'; // Simulate token validation
+    return of(isValid); // Returning token validity
   }
 
+  // Hardcoded logout method
   logout(): void {
-    // Handle logout logic, e.g., clear local storage
-    // throw new Error("not implemented")
-    console.log("not implemented")
+    console.log("Logout successful (hardcoded)");
+    // No observable needed, just a console message
   }
 }

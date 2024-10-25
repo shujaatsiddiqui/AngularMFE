@@ -1,24 +1,34 @@
-import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { AuthState } from './auth.reducer';
+import { createSelector } from '@ngrx/store';
+import { AuthState } from './auth.model';
 
-export const selectAuthState = createFeatureSelector<AuthState>('auth');
+// Assuming you have a root state that includes AuthState
+export interface AppState {
+  auth: AuthState;
+}
 
-export const selectAccessToken = createSelector(
-  selectAuthState,
-  (state: AuthState) => state.access_token
-);
+// Select the entire auth state
+export const selectAuthState = (state: AppState) => state.auth;
 
-export const selectRefreshToken = createSelector(
-  selectAuthState,
-  (state: AuthState) => state.refresh_token
-);
-
+// Selector to get the user
 export const selectUser = createSelector(
   selectAuthState,
   (state: AuthState) => state.user
 );
 
-export const selectIsLoggedIn = createSelector(
+// Selector to check login error
+export const selectLoginError = createSelector(
   selectAuthState,
-  (state: AuthState) => state.is_logged_in
+  (state: AuthState) => state.loginError
+);
+
+// Selector to check signup error
+export const selectSignupError = createSelector(
+  selectAuthState,
+  (state: AuthState) => state.signupError
+);
+
+// Selector to check if token is valid
+export const selectIsTokenValid = createSelector(
+  selectAuthState,
+  (state: AuthState) => state.isTokenValid
 );

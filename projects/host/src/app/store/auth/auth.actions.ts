@@ -1,14 +1,15 @@
 import { createAction, props } from '@ngrx/store';
 import { User } from './auth.model';
 import { AUTH_ACTION_NAMES } from './auth.enums';
+
 export const login = createAction(
   AUTH_ACTION_NAMES.Login,
-  props<{ email: string, password: string }>()
+  props<{ email: string; password: string }>()
 );
 
 export const loginSuccess = createAction(
   AUTH_ACTION_NAMES.LoginSuccess,
-  props<{ access_token: string, refresh_token: string, user: User }>()
+  props<{ user: User }>()
 );
 
 export const loginFailure = createAction(
@@ -18,7 +19,7 @@ export const loginFailure = createAction(
 
 export const signup = createAction(
   AUTH_ACTION_NAMES.Signup,
-  props<{ email: string, password: string }>()
+  props<{ email: string; password: string }>()
 );
 
 export const signupSuccess = createAction(

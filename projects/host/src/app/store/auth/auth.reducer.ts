@@ -1,47 +1,50 @@
 import { createReducer, on } from '@ngrx/store';
+import { initialAuthState, AuthState} from './auth.model'
 import * as AuthActions from './auth.actions';
-import { User } from './auth.model';
-
-export interface AuthState {
-  access_token: string | null;
-  refresh_token: string | null;
-  user: User | null;
-  is_logged_in: boolean;
-}
-
-export const initialState: AuthState = {
-  access_token: null,
-  refresh_token: null,
-  user: null,
-  is_logged_in: false
-};
 
 export const authReducer = createReducer(
-  initialState,
+  initialAuthState,
 
-  on(AuthActions.loginSuccess, (state, { access_token, refresh_token, user }) => ({
+  on(AuthActions.login, state => {
+    return { ...state, loginError: null }; // Reset login error
+  }),
+  // Handle login success
+  on(AuthActions.loginSuccess, (state, { user }) => ({
     ...state,
-    access_token,
-    refresh_token,
+    user,                // User now contains access and refresh tokens
+    loginError: null,   // Clear login error on success
+  })),
+
+  // Handle login failure
+  on(AuthActions.loginFailure, (state, { error }) => ({
+    ...state,
+    loginError: error,
+    user: null, // Clear user data on login failure
+  })),
+
+  // Handle signup success
+  on(AuthActions.signupSuccess, (state, { user }) => ({
+    ...state,
     user,
-    is_logged_in: true
+    signupError: null // Clear signup error on success
   })),
 
-  on(AuthActions.logout, state => ({
+  // Handle signup failure
+  on(AuthActions.signupFailure, (state, { error }) => ({
     ...state,
-    access_token: null,
-    refresh_token: null,
-    user: null,
-    is_logged_in: false
+    signupError: error
   })),
 
-  on(AuthActions.refreshAccessTokenSuccess, (state, { access_token }) => ({
-    ...state,
-    access_token
-  })),
-
+  // Handle token validity check
   on(AuthActions.tokenValidityChecked, (state, { is_valid }) => ({
     ...state,
-    is_logged_in: is_valid
+    isTokenValid: is_valid
+  })),
+
+  // Handle logout
+  on(AuthActions.logout, (state) => ({
+    ...state,
+    user: null, // Clear user on logout
   }))
 );
+

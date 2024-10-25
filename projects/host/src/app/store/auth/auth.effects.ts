@@ -2,26 +2,34 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { AuthService } from './auth.service';
 import * as AuthActions from './auth.actions';
-import { catchError, map, mergeMap } from 'rxjs/operators';
-import { of } from 'rxjs';
+import { catchError, map, of, switchMap } from 'rxjs';
 
 @Injectable()
 export class AuthEffects {
-  constructor(private actions$: Actions, private authService: AuthService) { }
+  constructor(private actions$: Actions, private authService: AuthService) {}
 
   login$ = createEffect(() =>
     this.actions$.pipe(
       ofType(AuthActions.login),
-      mergeMap(action =>
-        this.authService.login(action.email, action.password).pipe(
-          map((response) =>
-            AuthActions.loginSuccess({
-              access_token: response.access_token,
-              refresh_token: response.refresh_token,
-              user: response.user
-            })
-          ),
-          catchError((error) => of(AuthActions.loginFailure({ error })))
+      switchMap(({ email, password }) =>
+        this.authService.login(email, password).pipe(
+          map(({ accessToken, refreshToken, ...user }) => {
+            // Assuming login success returns tokens and user
+            return AuthActions.loginSuccess({ user: { ...user, accessToken: accessToken, refreshToken: refreshToken } });
+          }),
+          catchError((error) => of(AuthActions.loginFailure({ error: error.message })))
+        )
+      )
+    )
+  );
+
+  signup$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(AuthActions.signup),
+      switchMap(({ email, password }) =>
+        this.authService.signup(email, password).pipe(
+          map((user) => AuthActions.signupSuccess({ user })),
+          catchError((error) => of(AuthActions.signupFailure({ error: error.message })))
         )
       )
     )
@@ -30,12 +38,10 @@ export class AuthEffects {
   refreshAccessToken$ = createEffect(() =>
     this.actions$.pipe(
       ofType(AuthActions.refreshAccessToken),
-      mergeMap(action =>
-        this.authService.refreshToken(action.refresh_token).pipe(
-          map((response) =>
-            AuthActions.refreshAccessTokenSuccess({ access_token: response.access_token })
-          ),
-          catchError((error) => of(AuthActions.loginFailure({ error })))
+      switchMap(({ refresh_token }) =>
+        this.authService.refreshToken(refresh_token).pipe(
+          map(({ accessToken }) => AuthActions.refreshAccessTokenSuccess({ access_token : accessToken })),
+          catchError((error) => of(AuthActions.loginFailure({ error: error.message })))
         )
       )
     )
@@ -44,9 +50,10 @@ export class AuthEffects {
   checkTokenValidity$ = createEffect(() =>
     this.actions$.pipe(
       ofType(AuthActions.checkTokenValidity),
-      mergeMap(action =>
-        this.authService.isTokenValid(action.access_token).pipe(
-          map(is_valid => AuthActions.tokenValidityChecked({ is_valid }))
+      switchMap(({ access_token }) =>
+        this.authService.isTokenValid(access_token).pipe(
+          map((is_valid) => AuthActions.tokenValidityChecked({ is_valid })),
+          catchError((error) => of(AuthActions.loginFailure({ error: error.message })))
         )
       )
     )

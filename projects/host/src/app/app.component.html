@@ -2,4 +2,22 @@
 <nav>
   <a routerLink="/todos">Todo List</a>
 </nav>
+<div class="container">
+  <h1>User Authentication</h1>
+
+  <div *ngIf="user$ | async as user;">
+    <p>Welcome, {{ user.name }}!</p>
+    <p>Email: {{ user.email }}</p>
+    <p>User ID: {{ user.id }}</p>
+  </div>
+
+  <div *ngIf="loginError$ | async as error" class="error-message">
+    <p>Error: {{ error }}</p>
+  </div>
+
+  <button (click)="loginUser()" class="action-button">Login</button>
+  <button (click)="signupUser()" class="action-button">Signup</button>
+  <button (click)="checkTokenValidityUser()" class="action-button">Check Token Validity</button>
+</div>
+
 <router-outlet></router-outlet>

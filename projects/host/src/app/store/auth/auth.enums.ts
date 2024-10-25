@@ -1,5 +1,5 @@
 export enum AUTH_ACTION_NAMES {
-  Login = '[Auth] Login',
+  Login = 'login',
   LoginSuccess = '[Auth] Login Success',
   LoginFailure = '[Auth] Login Failure',
   Signup = '[Auth] Signup',
