@@ -6,6 +6,8 @@ import { AppComponent } from './app.component';
 import { provideHttpClient } from '@angular/common/http';
 import { StoreModule } from '@ngrx/store';
 import { authReducer } from './store/auth/auth.reducer';
+import { EffectsModule } from '@ngrx/effects';
+import { AuthEffects } from './store/auth/auth.effects';
 
 @NgModule({
   declarations: [
@@ -14,7 +16,8 @@ import { authReducer } from './store/auth/auth.reducer';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    StoreModule.forRoot(authReducer) // Register the store module with the root reducer
+    StoreModule.forRoot(authReducer), // Register the store module with the root reducer
+    EffectsModule.forRoot([AuthEffects]), // Registering effects
   ],
   providers: [
     provideHttpClient()

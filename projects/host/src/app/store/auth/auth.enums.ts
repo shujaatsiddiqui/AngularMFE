@@ -1,5 +1,5 @@
 export enum AUTH_ACTION_NAMES {
-  Login = 'login',
+  Login = '[Auth] Login',
   LoginSuccess = '[Auth] Login Success',
   LoginFailure = '[Auth] Login Failure',
   Signup = '[Auth] Signup',
@@ -12,9 +12,9 @@ export enum AUTH_ACTION_NAMES {
   TokenValidityChecked = '[Auth] Token Validity Checked',
 }
 
-export enum AUTH_EVENT_NAMES {
-  LoginStatus = 'auth:loginStatus',
-  AccessToken = 'auth:accessToken',
-  RefreshToken = 'auth:refreshToken',
-  IsTokenValid = 'auth:isTokenValid'
-}
+// export enum AUTH_EVENT_NAMES {
+//   LoginStatus = 'auth:loginStatus',
+//   AccessToken = 'auth:accessToken',
+//   RefreshToken = 'auth:refreshToken',
+//   IsTokenValid = 'auth:isTokenValid'
+// }

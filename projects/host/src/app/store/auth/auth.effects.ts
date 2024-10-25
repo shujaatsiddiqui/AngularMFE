@@ -2,22 +2,32 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { AuthService } from './auth.service';
 import * as AuthActions from './auth.actions';
-import { catchError, map, of, switchMap } from 'rxjs';
+import { catchError, map, of, switchMap, tap } from 'rxjs';
+import { User } from './auth.model';
 
 @Injectable()
 export class AuthEffects {
-  constructor(private actions$: Actions, private authService: AuthService) {}
+  constructor(private actions$: Actions, private authService: AuthService) {
+    console.log('Actions observable initialized:', this.actions$);
+  }
 
-  login$ = createEffect(() =>
+
+  login$ = createEffect(() => 
     this.actions$.pipe(
-      ofType(AuthActions.login),
+      tap(action => console.log('Action dispatched:', action)),
+      ofType(AuthActions.login), // Listen for the login action
       switchMap(({ email, password }) =>
+        
         this.authService.login(email, password).pipe(
-          map(({ accessToken, refreshToken, ...user }) => {
-            // Assuming login success returns tokens and user
-            return AuthActions.loginSuccess({ user: { ...user, accessToken: accessToken, refreshToken: refreshToken } });
+          map((user: User) => {
+            // Directly assuming login success returns a User object
+            console.log('login success' + user);
+            return AuthActions.loginSuccess({ user });
           }),
-          catchError((error) => of(AuthActions.loginFailure({ error: error.message })))
+          catchError((error) => {
+            console.error('Login error:', error); // Log the error for debugging
+            return of(AuthActions.loginFailure({ error: error.message || 'Login failed' }));
+          })
         )
       )
     )

@@ -1,12 +1,19 @@
 import { Observable, of } from 'rxjs';
 import { User } from './auth.model';
 import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+
+
+@Injectable({
+  providedIn: 'root' // Or you can provide it in AppModule
+})
 
 export class AuthService {
   constructor(private http: HttpClient) { }
 
   // Hardcoded login method using the updated User model
   login(email: string, password: string): Observable<User> {
+    debugger;
     const user: User = {
       id: '1',
       email: 'shujaat@example.com',

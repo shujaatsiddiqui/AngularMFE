@@ -3,12 +3,12 @@ import { User } from './auth.model';
 import { AUTH_ACTION_NAMES } from './auth.enums';
 
 export const login = createAction(
-  AUTH_ACTION_NAMES.Login,
-  props<{ email: string; password: string }>()
+  AUTH_ACTION_NAMES.Login, // Unique action name
+  props<{ email: string; password: string }>() // Expect this type of data when called
 );
 
 export const loginSuccess = createAction(
-  AUTH_ACTION_NAMES.LoginSuccess,
+  AUTH_ACTION_NAMES.LoginSuccess, // unique action name
   props<{ user: User }>()
 );
 

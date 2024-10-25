@@ -1,4 +1,3 @@
-$border-color: #000;
 $primary-color: #007bff;
 $hover-color: #0056b3;
 $box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
@@ -9,24 +8,24 @@ $box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   justify-content: center;
   align-items: center;
   height: 100vh; // Center vertically
-  border: 8px solid $border-color; // 8-pixel border
-  padding: 20px;
-  box-shadow: $box-shadow; // Optional shadow for better appearance
 
   h1 {
-    margin-bottom: 20px; // Space between title and buttons
+    margin-bottom: 20px; // Space between title and button
   }
 
   .action-button {
     padding: 10px 20px;
     font-size: 16px;
     margin: 5px; // Space between buttons
-    border: none;
+    border: none; // Remove all borders
     border-radius: 5px;
     background-color: $primary-color; // Bootstrap primary color
     color: white;
     cursor: pointer;
     transition: background-color 0.3s;
+
+    // Optional: Add a bottom border to the button for emphasis
+    border-bottom: 4px solid $hover-color;
 
     &:hover {
       background-color: $hover-color; // Darker shade on hover
