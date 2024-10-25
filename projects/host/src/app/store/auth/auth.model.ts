@@ -1,3 +1,4 @@
+// src/app/store/auth/auth.model.ts
 export interface User {
   id: string;
   email: string;
@@ -9,13 +10,9 @@ export interface User {
 export interface AuthState {
   user: User | null;          // Store the authenticated user
   loginError: string | null;  // Store error message for login
-  signupError: string | null; // Store error message for signup
-  isTokenValid: boolean | null; // Token validity check
 }
 
 export const initialAuthState: AuthState = {
   user: null,
   loginError: null,
-  signupError: null,
-  isTokenValid: null,
 };

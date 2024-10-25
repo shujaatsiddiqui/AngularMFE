@@ -1,34 +1,13 @@
-<h1>Welcome to My Angular Host App</h1>
-<nav>
-  <a routerLink="/todos">Todo List</a>
-</nav>
-<div class="container">
-  <h1>User Authentication</h1>
-
-  <p>hello</p>
-  <div *ngIf="user$ | async as user;">
-    <p>hello</p>
-    <p>Welcome, {{ user.name }}!</p>
-    <p>Email: {{ user.email }}</p>
-    <p>User ID: {{ user.id }}</p>
-  </div>
-  
-  <div *ngIf="loginError$ | async as loginError">
-    <p class="error">{{ loginError }}</p>
-  </div>
-  
-  <div *ngIf="signupError$ | async as signupError">
-    <p class="error">{{ signupError }}</p>
-  </div>
-  
-  <div *ngIf="isTokenValid$ | async as isTokenValid">
-    <p *ngIf="isTokenValid">Token is valid</p>
-    <p *ngIf="!isTokenValid">Token is invalid</p>
-  </div>
-
-  <button (click)="loginUser()" class="action-button">Login</button>
-  <button (click)="signupUser()" class="action-button">Signup</button>
-  <button (click)="checkTokenValidityUser()" class="action-button">Check Token Validity</button>
-</div>
-
-<router-outlet></router-outlet>
+<h1>Authentication Example</h1>
+    <div>
+      <h2>Login</h2>      
+      <button (click)="onLogin()">Login</button>
+      <div *ngIf="loginError$ | async as error" style="color: red;">
+        {{ error }}
+      </div>
+    </div>
+    <div *ngIf="user$ | async as user">
+      <h2>Welcome, {{ user.name }}!</h2>
+      <p>Email: {{ user.email }}</p>
+      <p>User ID: {{ user.id }}</p>
+ </div>

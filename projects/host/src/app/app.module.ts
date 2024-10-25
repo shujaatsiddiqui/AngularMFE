@@ -16,8 +16,8 @@ import { AuthEffects } from './store/auth/auth.effects';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    StoreModule.forRoot(authReducer), // Register the store module with the root reducer
-    EffectsModule.forRoot([AuthEffects]), // Registering effects
+    StoreModule.forRoot({ auth: authReducer }),
+    EffectsModule.forRoot([AuthEffects]),
   ],
   providers: [
     provideHttpClient()

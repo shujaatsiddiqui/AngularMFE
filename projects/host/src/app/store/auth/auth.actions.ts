@@ -1,55 +1,21 @@
+// src/app/store/auth/auth.actions.ts
 import { createAction, props } from '@ngrx/store';
 import { User } from './auth.model';
-import { AUTH_ACTION_NAMES } from './auth.enums';
 
+// Define the login action
 export const login = createAction(
-  AUTH_ACTION_NAMES.Login, // Unique action name
-  props<{ email: string; password: string }>() // Expect this type of data when called
-);
-
-export const loginSuccess = createAction(
-  AUTH_ACTION_NAMES.LoginSuccess, // unique action name
-  props<{ user: User }>()
-);
-
-export const loginFailure = createAction(
-  AUTH_ACTION_NAMES.LoginFailure,
-  props<{ error: string }>()
-);
-
-export const signup = createAction(
-  AUTH_ACTION_NAMES.Signup,
+  '[Auth] Login',
   props<{ email: string; password: string }>()
 );
 
-export const signupSuccess = createAction(
-  AUTH_ACTION_NAMES.SignupSuccess,
+// Define the login success action
+export const loginSuccess = createAction(
+  '[Auth] Login Success',
   props<{ user: User }>()
 );
 
-export const signupFailure = createAction(
-  AUTH_ACTION_NAMES.SignupFailure,
+// Define the login failure action
+export const loginFailure = createAction(
+  '[Auth] Login Failure',
   props<{ error: string }>()
-);
-
-export const logout = createAction(AUTH_ACTION_NAMES.Logout);
-
-export const refreshAccessToken = createAction(
-  AUTH_ACTION_NAMES.RefreshAccessToken,
-  props<{ refresh_token: string }>()
-);
-
-export const refreshAccessTokenSuccess = createAction(
-  AUTH_ACTION_NAMES.RefreshAccessTokenSuccess,
-  props<{ access_token: string }>()
-);
-
-export const checkTokenValidity = createAction(
-  AUTH_ACTION_NAMES.CheckTokenValidity,
-  props<{ access_token: string }>()
-);
-
-export const tokenValidityChecked = createAction(
-  AUTH_ACTION_NAMES.TokenValidityChecked,
-  props<{ is_valid: boolean }>()
 );
