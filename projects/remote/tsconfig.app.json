@@ -2,7 +2,10 @@
   "extends": "../../tsconfig.json",
   "compilerOptions": {
     "outDir": "../../out-tsc/app",
-    "types": []
+    "types": [],
+    "paths": {
+      "auth-lib": ["../../dist/auth-lib"]  // Adjust this path relative to each app's `tsconfig.app.json`
+    }
   },
   "files": [
     "src/main.ts"

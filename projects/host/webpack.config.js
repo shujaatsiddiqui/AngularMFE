@@ -79,6 +79,7 @@ module.exports = {
           strictVersion: true,
           requiredVersion: "auto",
         },
+        "auth-lib": { singleton: true }, // Shared auth-lib
 
         ...sharedMappings.getDescriptors(),
       }),

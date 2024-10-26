@@ -1,6 +1,11 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "paths": {
+      "auth-lib": [
+        "./dist/auth-lib"
+      ]
+    },
     "useDefineForClassFields": false,
     "outDir": "./dist/out-tsc",
     "strict": true,

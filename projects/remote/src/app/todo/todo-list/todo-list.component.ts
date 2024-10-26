@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { AuthService } from 'auth-lib';
+
 
 @Component({
   selector: 'app-todo-list',
@@ -8,8 +10,13 @@ import { Component } from '@angular/core';
 export class TodoListComponent {
 
 
-  constructor() {
+  constructor(private authService: AuthService) {
     // Use AuthService methods like login, logout, etc.
-    //this.authService.logout() // logs not implemented to browser console
+    const user$ = this.authService.login()
+
+    user$.subscribe(val => {
+      console.log({ val });
+
+    })
   }
 }

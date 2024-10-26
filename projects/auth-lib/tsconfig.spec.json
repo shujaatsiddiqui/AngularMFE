@@ -3,16 +3,13 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "paths": {
-      "auth-lib": ["../../dist/auth-lib"]  // Adjust this path relative to each app's `tsconfig.app.json`
-    },
     "outDir": "../../out-tsc/spec",
     "types": [
       "jasmine"
     ]
   },
   "include": [
-    "src/**/*.spec.ts",
-    "src/**/*.d.ts"
+    "**/*.spec.ts",
+    "**/*.d.ts"
   ]
 }
