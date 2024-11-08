@@ -3,9 +3,8 @@ import { CommonModule } from '@angular/common';
 
 import { TodoRoutingModule } from './todo-routing.module';
 import { TodoListComponent } from './todo-list/todo-list.component';
-import { BrowserModule } from '@angular/platform-browser';
-import { provideHttpClient } from '@angular/common/http';
-
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptorService } from '../auth-interceptor.service';
 
 @NgModule({
   declarations: [
@@ -14,9 +13,6 @@ import { provideHttpClient } from '@angular/common/http';
   imports: [
     CommonModule,
     TodoRoutingModule,
-  ],
-  providers: [
-    provideHttpClient()
-  ],
+  ]
 })
 export class TodoModule { }
