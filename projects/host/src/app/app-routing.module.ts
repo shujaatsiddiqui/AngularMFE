@@ -2,6 +2,7 @@ import { loadRemoteModule } from '@angular-architects/module-federation';
 import { HttpClient, provideHttpClient } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { MsalGuard } from '@azure/msal-angular';
 
 const MFE_APP_URL = "http://localhost:4300/remoteEntry.js";
 
@@ -17,16 +18,13 @@ const routes: Routes = [
         exposedModule: "./TodoModule"
       }).then(m => m.TodoModule).catch(err => console.log({ err }));
     },
+    canActivate : [MsalGuard]
   },
   { path: '', redirectTo: '/todos', pathMatch: 'full' },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule],
-  providers: [
-    HttpClient,
-    provideHttpClient()
-  ],
+  exports: [RouterModule]
 })
 export class AppRoutingModule { }
