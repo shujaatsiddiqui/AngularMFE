@@ -1,0 +1,29 @@
+{
+  "plugins": [
+    {
+      "pluginId": "remote",
+      "displayName": "Manage Application",
+      "remoteEntry": "http://localhost:4300/remoteEntry.js",
+      "exposedModule": "./ManageApplicationModule",
+      "requiredPermissions": [
+        "admin"
+      ],
+      "routes": [
+        {
+          "path": "manage/application",
+          "routeName": "Application",
+          "permissions": [
+            "view_application"
+          ]
+        },
+        {
+          "path": "manage/permission",
+          "routeName": "Permission",
+          "permissions": [
+            "view_permission"
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -34,8 +34,14 @@ module.exports = {
       name: "remote",
       filename: "remoteEntry.js",
       exposes: {
-        "./TodoModule": "./projects/remote/src/app/todo/todo.module.ts",
+        // "./AppModule": "./projects/remote/src/app/app.module.ts",
+        // "./TodoModule": "./projects/remote/src/app/todo/todo.module.ts",
+        "./ManageApplicationModule":
+          "./projects/remote/src/app/manage-application.module.ts",
       },
+      // exposes: {
+      //   "./ManageApplicationModule": "./src/app/manage-application.module.ts",
+      // },
 
       // // For hosts (please adjust)
       // remotes: {
@@ -63,15 +69,15 @@ module.exports = {
           strictVersion: true,
           requiredVersion: "auto",
         },
-        '@azure/msal-angular': {
+        "@azure/msal-angular": {
           singleton: true,
           strictVersion: true,
-          requiredVersion: 'auto',
+          requiredVersion: "auto",
         },
-        '@azure/msal-browser': {
+        "@azure/msal-browser": {
           singleton: true,
           strictVersion: true,
-          requiredVersion: 'auto',
+          requiredVersion: "auto",
         },
 
         ...sharedMappings.getDescriptors(),

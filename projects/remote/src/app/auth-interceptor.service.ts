@@ -10,15 +10,15 @@ import { AppConstants } from './app.constants';
 
 @Injectable()
 export class AuthInterceptorService implements HttpInterceptor {
-  constructor(private msalService: MsalService) {}
+  constructor(private msalService: MsalService) { }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     // Check if the request is to a protected resource
     if (req.url.includes(AppConstants.API_URL)) {
       return from(this.msalService.acquireTokenSilent({ scopes: [AppConstants.API_SCOPE] })).pipe(
         switchMap((response) => {
-          
-         
+
+
           const token = response.accessToken;
           // Clone the request to add the new header
           const authReq = req.clone({
@@ -32,7 +32,7 @@ export class AuthInterceptorService implements HttpInterceptor {
             // If silent token acquisition fails, prompt the user to login
             this.msalService.acquireTokenRedirect({ scopes: [AppConstants.API_SCOPE] });
           }
-          
+
           console.log(error);
           throw error;
         })

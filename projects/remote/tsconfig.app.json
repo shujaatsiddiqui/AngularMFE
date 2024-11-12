@@ -5,7 +5,9 @@
     "types": []
   },
   "files": [
-    "src/main.ts"
+    "src/main.ts",
+    "src/app/manage-application.module.ts",
+    "src/app/todo/todo.module.ts"
   ],
   "include": [
     "src/**/*.d.ts"

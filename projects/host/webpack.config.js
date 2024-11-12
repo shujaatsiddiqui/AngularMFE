@@ -79,15 +79,15 @@ module.exports = {
           strictVersion: true,
           requiredVersion: "auto",
         },
-        '@azure/msal-angular': {
+        "@azure/msal-angular": {
           singleton: true,
           strictVersion: true,
-          requiredVersion: 'auto',
+          requiredVersion: "auto",
         },
-        '@azure/msal-browser': {
+        "@azure/msal-browser": {
           singleton: true,
           strictVersion: true,
-          requiredVersion: 'auto',
+          requiredVersion: "auto",
         },
 
         ...sharedMappings.getDescriptors(),

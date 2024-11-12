@@ -1,6 +1,6 @@
 <!-- <h1>Authentication Example</h1>
     <div>
-      <h2>Login</h2>      
+      <h2>Login</h2>
       <button (click)="onLogin()">Login</button>
       <div *ngIf="loginError$ | async as error" style="color: red;">
         {{ error }}
@@ -11,7 +11,8 @@
       <p>Email: {{ user.email }}</p>
       <p>User ID: {{ user.id }}</p>
  </div> -->
- <div>
-   <h1>Host</h1>
- </div>
- <router-outlet></router-outlet>
+<div>
+  <h1>Host</h1>
+</div>
+<!-- <router-outlet></router-outlet> -->
+<app-sidebar></app-sidebar>
