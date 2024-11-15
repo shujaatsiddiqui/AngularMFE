@@ -38,6 +38,8 @@ module.exports = {
         // "./TodoModule": "./projects/remote/src/app/todo/todo.module.ts",
         "./ManageApplicationModule":
           "./projects/remote/src/app/manage-application.module.ts",
+        //"./ApplicationInfoComponent":"./projects/remote/src/app/application-info/application-info.component.ts",
+
       },
       // exposes: {
       //   "./ManageApplicationModule": "./src/app/manage-application.module.ts",

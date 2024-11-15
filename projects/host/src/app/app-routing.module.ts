@@ -1,30 +1,44 @@
-import { loadRemoteModule } from '@angular-architects/module-federation';
-import { HttpClient, provideHttpClient } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { MsalGuard } from '@azure/msal-angular';
-import { HomeComponent } from './home/home.component';
+import { inject } from '@angular/core';
+import { RemoteLoaderService } from './remoteupload';
 
-const MFE_APP_URL = "http://localhost:4300/remoteEntry.js";
+const routes: Routes = [
+  // Placeholder for dynamically added routes
+  { path: '', redirectTo: '/home', pathMatch: 'full' }
+];
 
-// const routes: Routes = [
-//   {
-//     path: 'todos',
-//     // loadChildren: () =>
-//     //   loadRemoteModule('remote', 'TodoModule'), // Ensure this matches the exposed name
-//     loadChildren: () => {
-//       return loadRemoteModule({
-//         remoteEntry: MFE_APP_URL,
-//         remoteName: "remote",
-//         exposedModule: "./TodoModule"
-//       }).then(m => m.TodoModule).catch(err => console.log({ err }));
-//     }, canActivate: [MsalGuard]
-//   },
-//   { path: '', component: HomeComponent, canActivate: [MsalGuard] },
-// ];
+async function loadPluginRoutes() {
+  const remoteLoaderService = inject(RemoteLoaderService);
+  const pluginsConfig = await remoteLoaderService.fetchPluginsConfig();
+
+  for (const plugin of pluginsConfig.plugins) {
+    debugger;
+    for (const route of plugin.routes) {
+      routes.push({
+        path: route.path,
+        loadChildren: async () => {
+          const module = await remoteLoaderService.loadRemoteModule(
+            plugin.remoteEntry,
+            plugin.pluginId,
+            plugin.exposedModule
+          );
+          return module;
+        },
+        data: {
+          permissions: route.permissions, // Attach permissions for later use
+        },
+      });
+    }
+  }
+}
 
 @NgModule({
-  imports: [RouterModule.forRoot([])],
-  exports: [RouterModule]
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {
+  constructor() {
+    loadPluginRoutes(); // Dynamically load plugin routes at runtime
+  }
+}
