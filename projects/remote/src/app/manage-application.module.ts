@@ -1,38 +1,38 @@
-import { NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
-import { CommonModule } from '@angular/common';
-import { ApplicationInfoComponent } from './application-info/application-info.component';
+// import { NgModule } from '@angular/core';
+// import { RouterModule } from '@angular/router';
+// import { CommonModule } from '@angular/common';
+// import { ApplicationInfoComponent } from './application-info/application-info.component';
 
-import { PluginInterface, PluginRoute } from '../../../host/src/app/plugin.interface';
-@NgModule({
-  declarations: [],
-  imports: [
-    CommonModule,
-    RouterModule.forChild([
-      { path: 'manage/application', component: ApplicationInfoComponent },
-    ]),
-  ],
-})
-export class ManageApplicationModule implements PluginInterface {
-  pluginId = "remote";
-  displayName = "Manage Application";
-  requiredPermissions = ["admin"];
+// import { PluginInterface, PluginRoute } from '../../../host/src/app/plugin.interface';
+// @NgModule({
+//   declarations: [],
+//   imports: [
+//     CommonModule,
+//     RouterModule.forChild([
+//       { path: 'manage/application', component: ApplicationInfoComponent },
+//     ]),
+//   ],
+// })
+// export class ManageApplicationModule implements PluginInterface {
+//   pluginId = "remote";
+//   displayName = "Manage Application";
+//   requiredPermissions = ["admin"];
 
-  initialize(config?: any) {
-    console.log("Plugin initialized with config:", config);
-  }
+//   initialize(config?: any) {
+//     console.log("Plugin initialized with config:", config);
+//   }
 
-  getRoutes(): PluginRoute[] {
-    return [
-      {
-        path: 'manage/application',
-        component: ApplicationInfoComponent,
-        routeName: "Application",
-        permissions: ["view_application"]
-      }
-    ];
-  }
-}
+//   getRoutes(): PluginRoute[] {
+//     return [
+//       {
+//         path: 'manage/application',
+//         component: ApplicationInfoComponent,
+//         routeName: "Application",
+//         permissions: ["view_application"]
+//       }
+//     ];
+//   }
+// }
 
 
 // import { NgModule } from '@angular/core';

@@ -1,44 +1,39 @@
+
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { inject } from '@angular/core';
-import { RemoteLoaderService } from './remoteupload';
+import { RouterModule, ROUTES, Routes } from '@angular/router';
 
-const routes: Routes = [
-  // Placeholder for dynamically added routes
-  { path: '', redirectTo: '/home', pathMatch: 'full' }
-];
-
-async function loadPluginRoutes() {
-  const remoteLoaderService = inject(RemoteLoaderService);
-  const pluginsConfig = await remoteLoaderService.fetchPluginsConfig();
-
-  for (const plugin of pluginsConfig.plugins) {
-    debugger;
-    for (const route of plugin.routes) {
-      routes.push({
-        path: route.path,
-        loadChildren: async () => {
-          const module = await remoteLoaderService.loadRemoteModule(
-            plugin.remoteEntry,
-            plugin.pluginId,
-            plugin.exposedModule
-          );
-          return module;
-        },
-        data: {
-          permissions: route.permissions, // Attach permissions for later use
-        },
-      });
-    }
-  }
-}
+import { CUSTOM_ROUTES } from './platform-routes';
+import { HomeComponent } from './home/home.component';
+import { SidebarComponent } from './components/sidebar/sidebar.component';
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [
+
+    RouterModule.forRoot(
+      [
+        /* Declare root routes in the factory below */
+        { path: 'home', component: HomeComponent },
+      ],
+      { initialNavigation: 'enabledNonBlocking' }
+    ),
+    {
+      ngModule: RouterModule,
+      providers: [
+        {
+          provide: ROUTES,
+          useFactory: (dynamicRoutes: any = []) => {
+            let rootRoutes: Routes = [];
+            if (Array.isArray(dynamicRoutes)) {
+              rootRoutes = [...rootRoutes, ...dynamicRoutes];
+            }
+            return rootRoutes.flat();
+          },
+          deps: [CUSTOM_ROUTES],
+          multi: true,
+        },
+      ],
+    },
+  ],
   exports: [RouterModule],
 })
-export class AppRoutingModule {
-  constructor() {
-    loadPluginRoutes(); // Dynamically load plugin routes at runtime
-  }
-}
+export class AppRoutingModule { }

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
@@ -23,7 +23,9 @@ import { CommonModule } from '@angular/common';
     </form>
   `,
 })
-export class ApplicationInfoComponent {
+export class ApplicationInfoComponent implements OnInit {
+  ngOnInit(): void {
+  }
   appName: string = '';
   version: string = '';
 

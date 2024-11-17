@@ -28,27 +28,16 @@ module.exports = {
   },
   plugins: [
     new ModuleFederationPlugin({
-      //library: { type: "module" },
-
-      // For remotes (please adjust)
       name: "remote",
       filename: "remoteEntry.js",
       exposes: {
-        // "./AppModule": "./projects/remote/src/app/app.module.ts",
-        // "./TodoModule": "./projects/remote/src/app/todo/todo.module.ts",
-        "./ManageApplicationModule":
-          "./projects/remote/src/app/manage-application.module.ts",
-        //"./ApplicationInfoComponent":"./projects/remote/src/app/application-info/application-info.component.ts",
+        "./ApplicationInfoModule":
+          "./projects/remote/src/app/application-info/application-info.module.ts",
 
+        "./AppModule": "./projects/remote/src/app/app.module.ts",
+
+        "./TodoModule": "./projects/remote/src/app/todo/todo.module.ts",
       },
-      // exposes: {
-      //   "./ManageApplicationModule": "./src/app/manage-application.module.ts",
-      // },
-
-      // // For hosts (please adjust)
-      // remotes: {
-      //   host: "host@http://localhost:4200/remoteEntry.js",
-      // },
 
       shared: share({
         "@angular/core": {

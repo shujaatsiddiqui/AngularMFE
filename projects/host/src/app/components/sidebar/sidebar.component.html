@@ -1,7 +1,7 @@
 <div class="app-container">
   <nav class="side-menu">
-    <ul *ngFor="let items of menuItems">
-      <li *ngFor="let item of items.children">
+    <ul *ngFor="let item of menuItems">
+      <li>
         <a [href]="[item.path]" id="{{ item.path }}" routerLinkActive="active">
           {{ item.title }}
         </a>

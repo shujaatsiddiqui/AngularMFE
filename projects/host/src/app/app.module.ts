@@ -14,6 +14,7 @@ import { AppConstants } from './app.constants';
 import { AuthInterceptorService } from './auth-interceptor.service';
 import { HomeComponent } from './home/home.component';
 import { RouterModule } from '@angular/router';
+import { SidebarComponent } from './components/sidebar/sidebar.component';
 
 
 const msalConfig = {
@@ -32,9 +33,11 @@ const loginRequest = {
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent
+    HomeComponent,
+    SidebarComponent,
   ],
   imports: [
+    // SidebarComponent,
     BrowserModule,
     AppRoutingModule, HttpClientModule, // Add HttpClientModule here
     MsalModule.forRoot(
