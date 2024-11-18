@@ -1,5 +1,17 @@
-<h1>Welcome to My Angular Host App</h1>
-<nav>
-  <a routerLink="/todos">Todo List</a>
-</nav>
-<router-outlet></router-outlet>
+<!-- <h1>Authentication Example</h1>
+    <div>
+      <h2>Login</h2>      
+      <button (click)="onLogin()">Login</button>
+      <div *ngIf="loginError$ | async as error" style="color: red;">
+        {{ error }}
+      </div>
+    </div>
+    <div *ngIf="user$ | async as user">
+      <h2>Welcome, {{ user.name }}!</h2>
+      <p>Email: {{ user.email }}</p>
+      <p>User ID: {{ user.id }}</p>
+ </div> -->
+ <div>
+   <h1>Host</h1>
+ </div>
+ <router-outlet></router-outlet>

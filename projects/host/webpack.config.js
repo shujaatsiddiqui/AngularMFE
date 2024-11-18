@@ -4,54 +4,95 @@ const path = require("path");
 const share = mf.share;
 
 const sharedMappings = new mf.SharedMappings();
-sharedMappings.register(
-  path.join(__dirname, '../../tsconfig.json'),
-  [/* mapped paths to share */]);
+sharedMappings.register(path.join(__dirname, "../../tsconfig.json"), [
+  /* mapped paths to share */
+]);
 
 module.exports = {
+  target: "web",
   output: {
+    // uniqueName: "host",
+    // publicPath: "auto",
+    // scriptType: "text/javascript",
+
     uniqueName: "host",
-    publicPath: "auto",
-    scriptType : "text/javascript"
+    publicPath: "http://localhost:4200/", // Explicitly set the publicPath if auto is not working
+    scriptType: "text/javascript",
   },
   optimization: {
-    runtimeChunk: false
+    runtimeChunk: false,
   },
   resolve: {
     alias: {
       ...sharedMappings.getAliases(),
-    }
+    },
   },
   experiments: {
-    outputModule: true
+    outputModule: true,
   },
   plugins: [
     new ModuleFederationPlugin({
-        //library: { type: "module" },
+      //library: { type: "module" },
 
-        // For remotes (please adjust)
-        name: "host",
-        // filename: "remoteEntry.js",
-        // exposes: {
-        //     './Component': './projects/host/src/app/app.component.ts',
-        // },
+      // For remotes (please adjust)
+      name: "host",
+      filename: "remoteEntry.js",
+      // exposes: {
+      //   "./AuthService": "./projects/host/src/app/store/auth/auth.service.ts",
+      //   // "./AuthServices": "/projects/hos",
+      // },
 
-        // For hosts (please adjust)
-        remotes: {
-            "remote": "remote@http://localhost:4300/remoteEntry.js",
+      // For hosts (please adjust)
+      remotes: {
+        remote: "remote@http://localhost:4300/remoteEntry.js",
+      },
 
+      shared: share({
+        "@angular/core": {
+          singleton: true,
+          strictVersion: true,
+          requiredVersion: "auto",
+        },
+        "@angular/common": {
+          singleton: true,
+          strictVersion: true,
+          requiredVersion: "auto",
+        },
+        "@angular/common/http": {
+          singleton: true,
+          strictVersion: true,
+          requiredVersion: "auto",
+        },
+        "@angular/router": {
+          singleton: true,
+          strictVersion: true,
+          requiredVersion: "auto",
         },
 
-        shared: share({
-          "@angular/core": { singleton: true, strictVersion: true, requiredVersion: 'auto' },
-          "@angular/common": { singleton: true, strictVersion: true, requiredVersion: 'auto' },
-          "@angular/common/http": { singleton: true, strictVersion: true, requiredVersion: 'auto' },
-          "@angular/router": { singleton: true, strictVersion: true, requiredVersion: 'auto' },
+        "@ngrx/store": {
+          singleton: true,
+          strictVersion: true,
+          requiredVersion: "auto",
+        },
+        "@ngrx/effects": {
+          singleton: true,
+          strictVersion: true,
+          requiredVersion: "auto",
+        },
+        '@azure/msal-angular': {
+          singleton: true,
+          strictVersion: true,
+          requiredVersion: 'auto',
+        },
+        '@azure/msal-browser': {
+          singleton: true,
+          strictVersion: true,
+          requiredVersion: 'auto',
+        },
 
-          ...sharedMappings.getDescriptors()
-        })
-
+        ...sharedMappings.getDescriptors(),
+      }),
     }),
-    sharedMappings.getPlugin()
+    sharedMappings.getPlugin(),
   ],
 };
