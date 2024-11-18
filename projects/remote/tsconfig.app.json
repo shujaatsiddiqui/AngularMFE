@@ -6,7 +6,6 @@
   },
   "files": [
     "src/main.ts",
-    "src/app/manage-application.module.ts",
     "src/app/todo/todo.module.ts",
     "src/app/application-info/application-info.module.ts"
   ],

@@ -6,13 +6,6 @@
     "exposedModule": "./ApplicationInfoModule",
     "exposedModuleName": "ApplicationInfoModule"
   },
-  "remote-app": {
-    "path": "remote-app",
-    "remoteEntry": "http://localhost:4300/remoteEntry.js",
-    "remoteName": "remote",
-    "exposedModule": "./AppModule",
-    "exposedModuleName": "AppModule"
-  },
   "todo-app": {
     "path": "todo-app",
     "remoteEntry": "http://localhost:4300/remoteEntry.js",

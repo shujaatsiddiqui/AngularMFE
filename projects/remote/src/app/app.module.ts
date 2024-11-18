@@ -25,39 +25,32 @@ const loginRequest = {
   scopes: [AppConstants.API_SCOPE], // Replace with your Web API's scope
 };
 
-const pluginRoutes: Routes = [
-  { path: 'manage/application', component: ApplicationInfoComponent },
-  { path: 'manage/permission', component: ApplicationInfoComponent },
-];
+// const pluginRoutes: Routes = [
+//   { path: 'manage/application', component: ApplicationInfoComponent },
+//   { path: 'manage/permission', component: ApplicationInfoComponent },
+// ];
 
 
 @NgModule({
-  declarations: [
-    AppComponent,
-
-  ],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
-    HttpClientModule, // Add HttpClientModule here
+    AppRoutingModule, // Ensure AppRoutingModule is imported
+    HttpClientModule,
     MsalModule.forRoot(
       new PublicClientApplication(msalConfig),
       {
-        interactionType: InteractionType.Redirect, // Use redirect for login
+        interactionType: InteractionType.Redirect,
         authRequest: loginRequest,
       },
       {
         interactionType: InteractionType.Redirect,
         protectedResourceMap: new Map([
-          [AppConstants.API_SCOPE, [AppConstants.API_SCOPE]], // Map API to the scope
+          [AppConstants.API_SCOPE, [AppConstants.API_SCOPE]],
         ]),
       }
     ),
-    FormsModule,  // Add FormsModule here
-    ApplicationInfoComponent,
-
-
-    RouterModule.forChild(pluginRoutes) // Use forChild here
-
+    FormsModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true },
@@ -65,9 +58,7 @@ const pluginRoutes: Routes = [
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule {
-  static routes = pluginRoutes; // Expose routes for dynamic loading
+export class AppModule {}
 
-}
 
 

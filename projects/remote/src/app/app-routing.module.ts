@@ -1,25 +1,14 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { MsalGuard } from '@azure/msal-angular';
 import { ApplicationInfoComponent } from './application-info/application-info.component';
-
-// const routes: Routes = [
-//   // {
-//   //   path: 'todos',
-//   //   loadChildren: () =>
-//   //     import('./todo/todo.module').then(m => m.TodoModule),
-//   //   // canActivate: [MsalGuard]
-//   // },
-//   // { path: '', redirectTo: '/todos', pathMatch: 'full' },
-
-// ];
 
 const routes: Routes = [
   { path: 'manage/application', component: ApplicationInfoComponent },
+  { path: '', redirectTo: 'manage/application', pathMatch: 'full' },
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  imports: [RouterModule.forRoot(routes)], // Use forRoot only here
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
