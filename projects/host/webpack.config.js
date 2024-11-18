@@ -44,7 +44,7 @@ module.exports = {
 
       // For hosts (please adjust)
       remotes: {
-        remote: "remote@http://localhost:4300/remoteEntry.js",
+        //remote: "remote@http://localhost:4300/remoteEntry.js",
       },
 
       shared: share({
@@ -79,15 +79,15 @@ module.exports = {
           strictVersion: true,
           requiredVersion: "auto",
         },
-        '@azure/msal-angular': {
+        "@azure/msal-angular": {
           singleton: true,
           strictVersion: true,
-          requiredVersion: 'auto',
+          requiredVersion: "auto",
         },
-        '@azure/msal-browser': {
+        "@azure/msal-browser": {
           singleton: true,
           strictVersion: true,
-          requiredVersion: 'auto',
+          requiredVersion: "auto",
         },
 
         ...sharedMappings.getDescriptors(),

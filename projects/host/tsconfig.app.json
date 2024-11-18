@@ -9,6 +9,7 @@
   ],
   "include": [
     "src/**/*.d.ts",
-    "src/app/store/auth/auth.service.ts"
+    "src/app/store/auth/auth.service.ts",
+    "src/typings"
   ]
 }

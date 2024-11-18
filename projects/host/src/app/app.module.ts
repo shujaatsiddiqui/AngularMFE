@@ -13,6 +13,9 @@ import { InteractionType, PublicClientApplication } from '@azure/msal-browser';
 import { AppConstants } from './app.constants';
 import { AuthInterceptorService } from './auth-interceptor.service';
 import { HomeComponent } from './home/home.component';
+import { RouterModule } from '@angular/router';
+import { SidebarComponent } from './components/sidebar/sidebar.component';
+
 
 const msalConfig = {
   auth: {
@@ -30,9 +33,11 @@ const loginRequest = {
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent
+    HomeComponent,
+    SidebarComponent,
   ],
   imports: [
+    // SidebarComponent,
     BrowserModule,
     AppRoutingModule, HttpClientModule, // Add HttpClientModule here
     MsalModule.forRoot(
@@ -50,8 +55,9 @@ const loginRequest = {
     ),
     StoreModule.forRoot({ auth: authReducer }),
     EffectsModule.forRoot([AuthEffects]),
+
   ],
-  providers: [ 
+  providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true },
     HttpClientModule,
     MsalService,

@@ -1,0 +1,16 @@
+{
+  "application-info": {
+    "path": "application-info",
+    "remoteEntry": "http://localhost:4300/remoteEntry.js",
+    "remoteName": "remote",
+    "exposedModule": "./ApplicationInfoModule",
+    "exposedModuleName": "ApplicationInfoModule"
+  },
+  "todo-app": {
+    "path": "todo-app",
+    "remoteEntry": "http://localhost:4300/remoteEntry.js",
+    "remoteName": "remote",
+    "exposedModule": "./TodoModule",
+    "exposedModuleName": "TodoModule"
+  }
+}

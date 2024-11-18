@@ -1,0 +1,16 @@
+{
+  "plugins": [
+    {
+      "pluginId": "manageApp",
+      "displayName": "Manage Application",
+      "remoteEntry": "http://localhost:4300/remoteEntry.js",
+      "exposedModule": "./ManageApplicationModule",
+      "routes": [
+        {
+          "path": "manage/application",
+          "routeName": "Application"
+        }
+      ]
+    }
+  ]
+}

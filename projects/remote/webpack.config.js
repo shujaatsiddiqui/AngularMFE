@@ -28,19 +28,16 @@ module.exports = {
   },
   plugins: [
     new ModuleFederationPlugin({
-      //library: { type: "module" },
-
-      // For remotes (please adjust)
       name: "remote",
       filename: "remoteEntry.js",
       exposes: {
+        "./ApplicationInfoModule":
+          "./projects/remote/src/app/application-info/application-info.module.ts",
+
+        "./AppModule": "./projects/remote/src/app/app.module.ts",
+
         "./TodoModule": "./projects/remote/src/app/todo/todo.module.ts",
       },
-
-      // // For hosts (please adjust)
-      // remotes: {
-      //   host: "host@http://localhost:4200/remoteEntry.js",
-      // },
 
       shared: share({
         "@angular/core": {
@@ -63,15 +60,15 @@ module.exports = {
           strictVersion: true,
           requiredVersion: "auto",
         },
-        '@azure/msal-angular': {
+        "@azure/msal-angular": {
           singleton: true,
           strictVersion: true,
-          requiredVersion: 'auto',
+          requiredVersion: "auto",
         },
-        '@azure/msal-browser': {
+        "@azure/msal-browser": {
           singleton: true,
           strictVersion: true,
-          requiredVersion: 'auto',
+          requiredVersion: "auto",
         },
 
         ...sharedMappings.getDescriptors(),

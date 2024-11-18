@@ -43,5 +43,8 @@
     "typescript": "~5.5.2",
     "webpack": "^5.95.0",
     "webpack-cli": "^5.1.4"
+  },
+  "resolutions": {
+    "webpack": "5.94.0"
   }
 }
