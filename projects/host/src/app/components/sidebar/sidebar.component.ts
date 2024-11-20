@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PluginInterface, PluginRoute, MenuItem } from '../../plugin.interface';
-import { Router } from '@angular/router';
+import { Router, NavigationExtras, Route } from '@angular/router';
 import { fromEvent } from 'rxjs';
 
 @Component({
@@ -15,27 +15,42 @@ export class SidebarComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.subscribeToEvents();
     this.setupRoutes();
   }
 
   setupRoutes() {
-    const app = localStorage.getItem("new_application");
     this.menuItems = [];
     this.router.config.forEach(route => {
       let path = route.path!;
-      if ((route?.data as any)?.query?.isRequired) {
-        path = path + "?" + (route?.data as any)?.query?.params?.map((param: string) => {
-          const paramValue = JSON.parse(app!)?.[param] || "";
-          return param + "=" + paramValue
-        }).join("&");
-      }
       this.menuItems.push({
         title: route.path!,
         path: path,
       });
     });
   }
+
+  navigateTo(event: MouseEvent, path: string): void {
+    event.preventDefault();
+    const app = localStorage.getItem('new_application');
+    const parsedApp = app ? JSON.parse(app) : {};
+    const route: Route | undefined = this.router.config.find(route => route.path === path);
+    const extras: any = {
+      queryParams: {},
+      skipLocationChange: false,
+    };
+
+    if ((route?.data as any)?.query?.isRequired && Array.isArray((route?.data as any)?.query?.params)) {
+      (route?.data as any)?.query?.params.forEach((param: string) => {
+        const paramValue = parsedApp[param] ?? '';
+        if (paramValue) {
+          extras.queryParams[param] = paramValue;
+        }
+      });
+    }
+
+    this.router.navigate([`${route?.path}`], extras);
+  }
+
 
   subscribeToEvents() {
     fromEvent(window, "new_application_created").subscribe((event: any) => {
