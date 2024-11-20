@@ -32,5 +32,13 @@ export class ApplicationInfoComponent implements OnInit {
   save() {
     // Code to save application info to the database
     console.log('Saved:', { name: this.appName, version: this.version });
+    const customEvent = new CustomEvent('new_application_created', { detail: { data: { name: this.appName, version: this.version, id: this.uuidv4() }, from: "remote-app" } });
+    window.dispatchEvent(customEvent);
+  }
+
+  uuidv4() {
+    return "10000000-1000-4000-8000-100000000000".replace(/[018]/g, c =>
+      (+c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> +c / 4).toString(16)
+    );
   }
 }
