@@ -1,10 +1,19 @@
 <!-- todo-list.component.html -->
 <div class="todo-list">
+  <h3>
+    App Id is<br />
+    {{ currentpath }}
+  </h3>
+
   <h2>Todo List</h2>
   <ul>
     <li *ngFor="let todo of todos">
       <span>{{ todo.text }}</span>
-      <input type="checkbox" [checked]="todo.done" (change)="toggleTodoStatus(todo)" />
+      <input
+        type="checkbox"
+        [checked]="todo.done"
+        (change)="toggleTodoStatus(todo)"
+      />
     </li>
   </ul>
 </div>
