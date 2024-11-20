@@ -2,7 +2,12 @@
   <nav class="side-menu">
     <ul *ngFor="let item of menuItems">
       <li>
-        <a [href]="[item.path]" id="{{ item.path }}" routerLinkActive="active">
+        <a
+          href="#"
+          id="{{ item.path }}"
+          routerLinkActive="active"
+          (click)="navigateTo($event, item.path)"
+        >
           {{ item.title }}
         </a>
       </li>

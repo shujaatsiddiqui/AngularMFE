@@ -32,8 +32,10 @@ export class ApplicationInfoComponent implements OnInit {
   save() {
     // Code to save application info to the database
     console.log('Saved:', { name: this.appName, version: this.version });
-    const customEvent = new CustomEvent('new_application_created', { detail: { data: { name: this.appName, version: this.version, id: this.uuidv4() }, from: "remote-app" } });
-    window.dispatchEvent(customEvent);
+    const data = { name: this.appName, version: this.version, id: this.uuidv4() };
+    localStorage.setItem('new_application', JSON.stringify(data));
+    this.appName = '';
+    this.version = '';
   }
 
   uuidv4() {

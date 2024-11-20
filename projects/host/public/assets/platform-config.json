@@ -11,6 +11,13 @@
     "remoteEntry": "http://localhost:4300/remoteEntry.js",
     "remoteName": "remote",
     "exposedModule": "./TodoModule",
-    "exposedModuleName": "TodoModule"
+    "exposedModuleName": "TodoModule",
+    "query": {
+      "isRequired": true,
+      "params": [
+        "id",
+        "version"
+      ]
+    }
   }
 }

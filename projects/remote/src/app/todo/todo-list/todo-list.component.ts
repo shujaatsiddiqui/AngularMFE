@@ -17,7 +17,8 @@ interface Todo {
 })
 export class TodoListComponent implements OnInit {
   todos: Todo[] = [];
-  currentpath: any;
+  id?: string;
+  version?: string;
 
   constructor(private http: HttpClient, private msalService: MsalService, private currentRoute: ActivatedRoute) {
 
@@ -30,17 +31,15 @@ export class TodoListComponent implements OnInit {
 
 
   configureAppId() {
-    let checkforDefault = true;
     this.currentRoute.queryParams.forEach((e: any) => {
-      if (e.appId !== null && e.appId !== undefined && e.appId.trim() !== "") {
-        this.currentpath = e.appId;
-        checkforDefault = false;
+      if (e.id !== null && e.id !== undefined && e.id.trim() !== "") {
+        this.id = e.id;
+      }
+      if (e?.version !== null && e?.version !== undefined && e?.version.trim() !== "") {
+        this.version = e.version;
       }
     });
-    if (checkforDefault) {
-      this.currentpath = JSON.parse(localStorage.getItem("new_application")!).id;
-      checkforDefault = true
-    }
+
   }
 
   // fetchTodos(): void {
