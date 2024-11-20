@@ -11,6 +11,7 @@ fetch('/assets/platform-config.json').then(async (res) => {
   const platformRoutes: Routes = [];
   for (const [key, value] of Object.entries<any>(config)) {
     platformRoutes.push({
+      data: value,
       path: value.path,
       loadChildren: () =>
         loadRemoteModule({

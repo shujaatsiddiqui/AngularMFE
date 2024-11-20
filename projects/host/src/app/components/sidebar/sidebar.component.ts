@@ -16,12 +16,19 @@ export class SidebarComponent implements OnInit {
 
   ngOnInit() {
     this.subscribeToEvents();
-    const app = localStorage.getItem("new_application");
+    this.setupRoutes();
+  }
 
+  setupRoutes() {
+    const app = localStorage.getItem("new_application");
+    this.menuItems = [];
     this.router.config.forEach(route => {
       let path = route.path!;
-      if (app !== null && app !== undefined && app.trim() !== "" && route.path!.includes("todo")) {
-        path = path + "?appId=" + JSON.parse(app).id;
+      if ((route?.data as any)?.query?.isRequired) {
+        path = path + "?" + (route?.data as any)?.query?.params?.map((param: string) => {
+          const paramValue = JSON.parse(app!)?.[param] || "";
+          return param + "=" + paramValue
+        }).join("&");
       }
       this.menuItems.push({
         title: route.path!,
@@ -30,19 +37,10 @@ export class SidebarComponent implements OnInit {
     });
   }
 
-
   subscribeToEvents() {
     fromEvent(window, "new_application_created").subscribe((event: any) => {
       localStorage.setItem("new_application", JSON.stringify(event.detail.data));
-      this.menuItems = this.menuItems.map(route => {
-        if (route.path.includes("todo")) {
-          return {
-            ...route,
-            path: route.path + "?appId=" + event.detail.data.id,
-          }
-        }
-        return route;
-      })
+      this.setupRoutes();
     })
   }
 
