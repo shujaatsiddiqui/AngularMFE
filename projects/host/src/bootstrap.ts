@@ -5,7 +5,7 @@ import { loadRemoteModule } from '@angular-architects/module-federation';
 import { AppModule } from './app/app.module';
 import { CUSTOM_ROUTES } from './app/platform-routes';
 
-fetch('/assets/platform-config.json').then(async (res) => {
+fetch('http://localhost:8080/platform-config').then(async (res) => {
   const config = await res.json();
 
   const platformRoutes: Routes = [];
