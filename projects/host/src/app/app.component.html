@@ -10,11 +10,15 @@
       [ngClass]="{ 'sidebar-collapsed': isSidebarCollapsed }"
       (click)="onSidebarToggle()"
     >
-      <i
+      <img
+        src="/assets/images/menu.png"
+        style="height: 24px; width: 24px; object-fit: cover"
+      />
+      <!-- <i
         [class]="
           isSidebarCollapsed ? 'fas fa-arrow-right' : 'fas fa-arrow-left'
         "
-      ></i>
+      ></i> -->
     </button>
   </div>
 

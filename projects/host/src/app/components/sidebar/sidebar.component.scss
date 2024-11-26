@@ -10,6 +10,7 @@
   transition: all 0.3s ease-in-out;
   overflow-x: hidden;
   box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  padding-top: 32px;
 }
 
 .sidebar-header {
@@ -93,7 +94,7 @@
 }
 
 .sidebar-collapsed {
-  width: 50px;
+  width: 90px;
 
   .sidebar-menu-item {
     position: static;

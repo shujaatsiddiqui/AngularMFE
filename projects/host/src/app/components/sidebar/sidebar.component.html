@@ -1,6 +1,6 @@
 <div class="sidebar" [ngClass]="{ 'sidebar-collapsed': isSidebarCollapsed }">
   <div class="sidebar-header">
-    <h1>HOST</h1>
+    <h1 *ngIf="!isSidebarCollapsed">HOST</h1>
   </div>
   <div class="sidebar-menu">
     <ul>
