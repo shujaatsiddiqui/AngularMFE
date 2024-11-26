@@ -17,6 +17,9 @@ import { RemoteLoaderService } from './remoteupload';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
+
+  isSidebarCollapsed = false;
+
   // email = '';
   // password = '';
   // user$: Observable<User | null>;
@@ -45,4 +48,8 @@ export class AppComponent {
   // onLogin() {
   //   this.store.dispatch(login({ email: this.email, password: this.password }));
   // }
+
+  onSidebarToggle() {
+    this.isSidebarCollapsed = !this.isSidebarCollapsed;
+  }
 }

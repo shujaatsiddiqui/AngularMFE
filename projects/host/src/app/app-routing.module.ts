@@ -12,7 +12,7 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
     RouterModule.forRoot(
       [
         /* Declare root routes in the factory below */
-        { path: 'home', component: HomeComponent },
+        { path: 'home', component: HomeComponent, title: "Home" },
       ],
       { initialNavigation: 'enabledNonBlocking' }
     ),

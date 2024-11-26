@@ -1,13 +1,26 @@
-import { Component, OnInit } from '@angular/core';
-import { PluginInterface, PluginRoute, MenuItem } from '../../plugin.interface';
+import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
+import { PluginInterface, PluginRoute } from '../../plugin.interface';
 import { Router, NavigationExtras, Route } from '@angular/router';
 import { fromEvent } from 'rxjs';
+
+interface MenuItem {
+  icon: string;
+  label: string;
+  path?: string;
+  hasChildren: boolean;
+  isOpen: boolean;
+  children: MenuItem[];
+}
 
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
+  styleUrls: ['./sidebar.component.scss'],
 })
 export class SidebarComponent implements OnInit {
+  @Input() isSidebarCollapsed = false;
+  @Output() sidebarToggle = new EventEmitter<void>();
+
   menuItems: MenuItem[] = [];
 
   constructor(
@@ -19,17 +32,51 @@ export class SidebarComponent implements OnInit {
   }
 
   setupRoutes() {
-    this.menuItems = [];
-    this.router.config.forEach(route => {
-      let path = route.path!;
-      this.menuItems.push({
-        title: route.path!,
-        path: path,
-      });
-    });
+    this.menuItems = this.router.config.reduce((groupedData: any[], item: any) => {
+      const { data, path } = item;
+
+      if (data?.title) {
+        let group = groupedData.find((g: any) => g.label === data.title);
+
+        if (!group) {
+          group = {
+            icon: "fas fa-folder",
+            label: data.title,
+            hasChildren: true,
+            isOpen: false,
+            children: []
+          };
+          groupedData.push(group);
+        }
+
+        data.components?.forEach((component: any) => {
+          if (!group.children.some((child: any) => child.path === component.path)) {
+            group.children.push({
+              icon: "fas fa-file",
+              label: component.name,
+              path: component.path
+            });
+          }
+        });
+      } else {
+        groupedData.push({
+          icon: "fas fa-question",
+          label: path ? "Home" : "Unknown",
+          path: path || null,
+          hasChildren: false,
+          isOpen: false,
+          children: []
+        });
+      }
+
+      return groupedData;
+    }, []);
+    console.log(this.router.config[2]);
+
+
   }
 
-  navigateTo(event: MouseEvent, path: string): void {
+  navigateTo(event: MouseEvent, path?: string): void {
     event.preventDefault();
     const app = localStorage.getItem('new_application');
     const parsedApp = app ? JSON.parse(app) : {};
@@ -59,25 +106,21 @@ export class SidebarComponent implements OnInit {
     })
   }
 
-  addPluginToMenu(plugin: PluginInterface) {
-    const menuItem: MenuItem = {
-      title: plugin.displayName,
-      path: plugin.pluginId,
-      children: plugin.getRoutes().map(route => ({
-        title: route.routeName,
-        path: route.path,
-        requiredPermissions: route.permissions || []
-      }))
-    };
-    this.menuItems.push(menuItem);
+
+
+
+  toggleSidebar() {
+    this.sidebarToggle.emit();
   }
 
-  addPluginRoutes(routes: PluginRoute[]) {
-    routes.forEach(route => {
-      this.router.config.push({
-        path: route.path,
-        component: route.component
-      });
+  toggleMenuItem(selectedItem: MenuItem): void {
+    this.menuItems = this.menuItems.map(item => {
+      if (item === selectedItem) {
+        return { ...item, isOpen: !item.isOpen };
+      }
+      return { ...item, isOpen: false };
     });
   }
+
+
 }
