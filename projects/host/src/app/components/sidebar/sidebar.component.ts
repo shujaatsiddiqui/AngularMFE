@@ -1,6 +1,5 @@
 import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
-import { PluginInterface, PluginRoute } from '../../plugin.interface';
-import { Router, NavigationExtras, Route } from '@angular/router';
+import { Router, Route } from '@angular/router';
 import { fromEvent } from 'rxjs';
 
 interface MenuItem {

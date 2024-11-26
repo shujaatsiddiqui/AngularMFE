@@ -1,10 +1,8 @@
 
 import { NgModule } from '@angular/core';
 import { RouterModule, ROUTES, Routes } from '@angular/router';
-
 import { CUSTOM_ROUTES } from './platform-routes';
 import { HomeComponent } from './home/home.component';
-import { SidebarComponent } from './components/sidebar/sidebar.component';
 
 @NgModule({
   imports: [
