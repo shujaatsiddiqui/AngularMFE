@@ -8,8 +8,6 @@ import { AppConstants } from './app.constants';
 import { AppRoutingModule } from './app-routing.module';
 import { AuthInterceptorService } from './auth-interceptor.service';
 import { FormsModule } from '@angular/forms';
-import { ApplicationInfoComponent } from './application-info/application-info.component';
-import { RouterModule, Routes } from '@angular/router';
 
 
 const msalConfig = {
@@ -25,10 +23,6 @@ const loginRequest = {
   scopes: [AppConstants.API_SCOPE], // Replace with your Web API's scope
 };
 
-// const pluginRoutes: Routes = [
-//   { path: 'manage/application', component: ApplicationInfoComponent },
-//   { path: 'manage/permission', component: ApplicationInfoComponent },
-// ];
 
 
 @NgModule({
@@ -58,7 +52,7 @@ const loginRequest = {
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }
 
 
 

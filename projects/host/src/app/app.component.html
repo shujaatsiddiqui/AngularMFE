@@ -1,24 +1,25 @@
-<!-- <h1>Authentication Example</h1>
-    <div>
-      <h2>Login</h2>
-      <button (click)="onLogin()">Login</button>
-      <div *ngIf="loginError$ | async as error" style="color: red;">
-        {{ error }}
-      </div>
-    </div>
-    <div *ngIf="user$ | async as user">
-      <h2>Welcome, {{ user.name }}!</h2>
-      <p>Email: {{ user.email }}</p>
-      <p>User ID: {{ user.id }}</p>
- </div> -->
-<div>
-  <h1>Host</h1>
-  <!-- <a href="application-info">applciation info</a> -->
-  <app-sidebar></app-sidebar>
-</div>
-<router-outlet></router-outlet>
+<div class="app-container">
+  <div class="position-relative">
+    <app-sidebar
+      [isSidebarCollapsed]="isSidebarCollapsed"
+      (sidebarToggle)="onSidebarToggle()"
+    >
+    </app-sidebar>
+    <button
+      class="sidebar-toggle-btn"
+      [ngClass]="{ 'sidebar-collapsed': isSidebarCollapsed }"
+      (click)="onSidebarToggle()"
+    >
+      <img
+        src="/assets/images/menu.png"
+        style="height: 24px; width: 24px; object-fit: cover"
+      />
+    </button>
+  </div>
 
-<!-- <div>
-  <h3>Dynamic Loader</h3>
-  <ng-container #dynamicContainer></ng-container>
-</div> -->
+  <main class="content" [ngClass]="{ 'content-expanded': isSidebarCollapsed }">
+    <div class="content-inner">
+      <router-outlet></router-outlet>
+    </div>
+  </main>
+</div>

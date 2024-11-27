@@ -1,10 +1,8 @@
 
 import { NgModule } from '@angular/core';
 import { RouterModule, ROUTES, Routes } from '@angular/router';
-
 import { CUSTOM_ROUTES } from './platform-routes';
 import { HomeComponent } from './home/home.component';
-import { SidebarComponent } from './components/sidebar/sidebar.component';
 
 @NgModule({
   imports: [
@@ -12,7 +10,7 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
     RouterModule.forRoot(
       [
         /* Declare root routes in the factory below */
-        { path: 'home', component: HomeComponent },
+        { path: 'home', component: HomeComponent, title: "Home" },
       ],
       { initialNavigation: 'enabledNonBlocking' }
     ),

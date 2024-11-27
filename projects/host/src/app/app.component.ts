@@ -7,7 +7,6 @@ import { login } from './store/auth/auth.actions';
 import { selectLoginError, selectUser } from './store/auth/auth.selectors';
 import { AppState } from './store/auth/app.state';
 import { MsalService } from '@azure/msal-angular';
-import { RemoteLoaderService } from './remoteupload';
 
 
 
@@ -17,6 +16,9 @@ import { RemoteLoaderService } from './remoteupload';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
+
+  isSidebarCollapsed = false;
+
   // email = '';
   // password = '';
   // user$: Observable<User | null>;
@@ -45,4 +47,8 @@ export class AppComponent {
   // onLogin() {
   //   this.store.dispatch(login({ email: this.email, password: this.password }));
   // }
+
+  onSidebarToggle() {
+    this.isSidebarCollapsed = !this.isSidebarCollapsed;
+  }
 }

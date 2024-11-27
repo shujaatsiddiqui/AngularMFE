@@ -1,23 +1,30 @@
-{
-  "application-info": {
-    "path": "application-info",
-    "remoteEntry": "http://localhost:4300/remoteEntry.js",
-    "remoteName": "remote",
-    "exposedModule": "./ApplicationInfoModule",
-    "exposedModuleName": "ApplicationInfoModule"
-  },
-  "todo-app": {
-    "path": "todo-app",
-    "remoteEntry": "http://localhost:4300/remoteEntry.js",
-    "remoteName": "remote",
-    "exposedModule": "./TodoModule",
-    "exposedModuleName": "TodoModule",
-    "query": {
-      "isRequired": true,
-      "params": [
-        "id",
-        "version"
-      ]
-    }
+[
+  {
+    "title": "Todo",
+    "components": [
+      {
+        "name": "Todo-1",
+        "path": "todo/app",
+        "remoteEntry": "http://localhost:4300/remoteEntry.js",
+        "remoteName": "remote",
+        "exposedModule": "./ApplicationInfoModule",
+        "exposedModuleName": "ApplicationInfoModule"
+      },
+      {
+        "name": "Todo-2",
+        "path": "todo/app-2",
+        "remoteEntry": "http://localhost:4300/remoteEntry.js",
+        "remoteName": "remote",
+        "exposedModule": "./TodoModule",
+        "exposedModuleName": "TodoModule",
+        "query": {
+          "isRequired": true,
+          "params": [
+            "todo_name",
+            "todo_id"
+          ]
+        }
+      }
+    ]
   }
-}
+]

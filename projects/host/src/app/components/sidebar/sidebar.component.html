@@ -1,19 +1,53 @@
-<div class="app-container">
-  <nav class="side-menu">
-    <ul *ngFor="let item of menuItems">
-      <li>
-        <a
-          href="#"
-          id="{{ item.path }}"
-          routerLinkActive="active"
-          (click)="navigateTo($event, item.path)"
-        >
-          {{ item.title }}
-        </a>
-      </li>
+<div class="sidebar" [ngClass]="{ 'sidebar-collapsed': isSidebarCollapsed }">
+  <div class="sidebar-header">
+    <h1 *ngIf="!isSidebarCollapsed">HOST</h1>
+  </div>
+  <div class="sidebar-menu">
+    <ul>
+      <ng-container *ngFor="let item of menuItems">
+        <li class="sidebar-menu-item">
+          <a
+            [href]="!item.hasChildren ? item.path : '#'"
+            class="sidebar-item"
+            [ngClass]="{
+              'has-children': item.hasChildren,
+              'menu-item-active': item.isOpen
+            }"
+            [routerLink]="!item.hasChildren ? item.path : null"
+            (click)="
+              !item.hasChildren
+                ? navigateTo($event, item.path)
+                : toggleMenuItem(item)
+            "
+            routerLinkActive="active"
+          >
+            <i [class]="item.icon"></i>
+            <span class="sidebar-item-text">{{ item.label }}</span>
+            <i
+              *ngIf="item.hasChildren && !isSidebarCollapsed"
+              class="fas fa-chevron-down sidebar-item-arrow"
+              [ngClass]="{ rotated: item.isOpen }"
+            ></i>
+          </a>
+
+          <ul
+            *ngIf="item.hasChildren && !isSidebarCollapsed && item.isOpen"
+            class="sidebar-submenu"
+          >
+            <li *ngFor="let child of item.children">
+              <a
+                href="#"
+                class="sidebar-item sidebar-subitem"
+                (click)="navigateTo($event, child.path)"
+                routerLinkActive="active"
+              >
+                <i [class]="child.icon"></i>
+                <span class="sidebar-item-text">{{ child.label }}</span>
+              </a>
+            </li>
+          </ul>
+        </li>
+      </ng-container>
     </ul>
-  </nav>
-  <main>
-    <!-- <router-outlet></router-outlet> -->
-  </main>
+  </div>
 </div>

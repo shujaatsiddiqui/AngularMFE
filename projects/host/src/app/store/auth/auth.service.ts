@@ -8,10 +8,9 @@ import { Observable, of } from 'rxjs';
   providedIn: 'root'
 })
 export class AuthService {
-  constructor(private store: Store) {}
+  constructor(private store: Store) { }
 
   login(email: string, password: string): Observable<User> {
-    debugger;
     const user: User = {
       id: '1',
       email: 'shujaat@example.com',
@@ -19,7 +18,7 @@ export class AuthService {
       accessToken: 'dummyAccessToken',
       refreshToken: 'dummyRefreshToken'
     };
-    
+
     return of(user); // Returning hardcoded user data with tokens included
   }
 }
