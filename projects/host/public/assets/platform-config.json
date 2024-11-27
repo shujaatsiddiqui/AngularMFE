@@ -31,30 +31,5 @@
         }
       }
     ]
-  },
-  {
-    "title": "Todo Duplicate",
-    "scopes": [
-      "el.manage",
-      "app.read",
-      "app.write"
-    ],
-    "components": [
-      {
-        "name": "Todo-1 Duplicate",
-        "path": "todo/app-duplicate",
-        "remoteEntry": "http://localhost:4300/remoteEntry.js",
-        "remoteName": "remote",
-        "exposedModule": "./ApplicationInfoModule",
-        "exposedModuleName": "ApplicationInfoModule",
-        "query": {
-          "isRequired": true,
-          "params": [
-            "id",
-            "version"
-          ]
-        }
-      }
-    ]
   }
 ]
