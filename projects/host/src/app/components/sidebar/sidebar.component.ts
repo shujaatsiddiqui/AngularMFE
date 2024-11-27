@@ -76,7 +76,6 @@ export class SidebarComponent implements OnInit {
   }
 
   navigateTo(event: MouseEvent, path?: string): void {
-    debugger;
     event.preventDefault();
     const app = localStorage.getItem('new_application');
     const parsedApp = app ? JSON.parse(app) : {};
