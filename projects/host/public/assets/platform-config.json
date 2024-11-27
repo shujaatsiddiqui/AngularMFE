@@ -1,6 +1,11 @@
 [
   {
     "title": "Todo",
+    "scopes": [
+      "el.manage",
+      "user.read",
+      "user.write"
+    ],
     "components": [
       {
         "name": "Todo-1",
@@ -18,10 +23,10 @@
         "exposedModule": "./TodoModule",
         "exposedModuleName": "TodoModule",
         "query": {
-          "isRequired": false,
+          "isRequired": true,
           "params": [
-            "id",
-            "version"
+            "todo_name",
+            "todo_id"
           ]
         }
       }
@@ -29,6 +34,11 @@
   },
   {
     "title": "Todo Duplicate",
+    "scopes": [
+      "el.manage",
+      "app.read",
+      "app.write"
+    ],
     "components": [
       {
         "name": "Todo-1 Duplicate",
