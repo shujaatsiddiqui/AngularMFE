@@ -76,21 +76,22 @@ export class SidebarComponent implements OnInit {
   }
 
   navigateTo(event: MouseEvent, path?: string): void {
+    debugger;
     event.preventDefault();
     const app = localStorage.getItem('new_application');
     const parsedApp = app ? JSON.parse(app) : {};
     const route: Route | undefined = this.router.config.find(route => route.path === path);
+    const comp = route?.data?.["components"]?.find((com: any) => com.path === path)
+
     const extras: any = {
       queryParams: {},
       skipLocationChange: false,
     };
 
-    if ((route?.data as any)?.query?.isRequired && Array.isArray((route?.data as any)?.query?.params)) {
-      (route?.data as any)?.query?.params.forEach((param: string) => {
+    if (comp?.query?.isRequired && Array.isArray(comp?.query?.params)) {
+      comp?.query?.params.forEach((param: string) => {
         const paramValue = parsedApp[param] ?? '';
-        if (paramValue) {
-          extras.queryParams[param] = paramValue;
-        }
+        extras.queryParams[param] = paramValue;
       });
     }
 
