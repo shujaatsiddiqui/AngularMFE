@@ -1,11 +1,6 @@
 [
   {
     "title": "Todo",
-    "scopes": [
-      "el.manage",
-      "user.read",
-      "user.write"
-    ],
     "components": [
       {
         "name": "Todo-1",
